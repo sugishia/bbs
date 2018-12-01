@@ -2,7 +2,7 @@
 if (isset($_POST['data'])) {
     $data = $_POST['data'];
 
-    if (empty($data['login_name']) || empty($data['password']) || empty($tdata['name'])) {
+    if (empty($data['login_name']) || empty($data['password']) || empty($data['name'])) {
         header ('Location: register.php');
         exit();
     }
@@ -52,7 +52,7 @@ if (isset($_POST['data'])) {
             <h1>テニスサークル交流サイト</h1>
             <h2 class="backgroundcolor">ユーザー新規登録</h2>
 
-            <form action="rehister.php" method="post">
+            <form action="register.php" method="post">
                 <p>ログインユーザー名：<input type="text" name="data[login_name]"></p>
                 <p>パスワード：<input type="password" name="data[password]"></p>
                 <p>氏名：<input type="text" name="data[name]"></p>
