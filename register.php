@@ -30,14 +30,19 @@ if (isset($_POST['data'])) {
         $stmt->execute();
 
         $id = intval($db->lastInsertID());
+        #ここで$idはint型になってます。。
 
         $stmt = $db->prepare(
             "INSERT INTO profiels (id, name, body, mail)
              VALUE(:id, :name, :body, :mail)"
         );
 
-        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         #bindParamってメソッドのスペル間違いです。PAramってなってました。修正済。
+        /*
+        もう一点気になるところがありました。PDO::PARAM_STRってなってましたが、32行目で$idは整数型で宣言してあります。
+        したがって、PDO::PARAM_INTの間違えではないでしょうか？？
+        */
         
         $stmt->bindParam(':name', $data['name'], PDO::PARAM_STR);
         $stmt->bindParam(':body', $data['body'], PDO::PARAM_STR);
