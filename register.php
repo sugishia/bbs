@@ -19,7 +19,14 @@ if (isset($_POST['data'])) {
         "INSERT INTO users (name, password) VALUES(:name, :password)");
 
         $stmt->bindParam(':name', $data['login_name'], PDO::PARAM_STR);
+        
         $stmt->bindParam(':password', sha1($data['password']), PDO::PARAM_STR);
+        /*
+        上のコードの気になる部分。sha1()って自作関数ですか？？
+        自作関数であるならば、この関数の定義をどこかに書いておく必要がありますね。
+        もしくは、required_once()とかでそのファイルを読み込ませる必要があります。
+        */
+                
         $stmt->execute();
 
         $id = intval($db->lastInsertID());
@@ -29,7 +36,9 @@ if (isset($_POST['data'])) {
              VALUE(:id, :name, :body, :mail)"
         );
 
-        $stmt->bindPAram(':id', $id, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+        #bindParamってメソッドのスペル間違いです。PAramってなってました。修正済。
+        
         $stmt->bindParam(':name', $data['name'], PDO::PARAM_STR);
         $stmt->bindParam(':body', $data['body'], PDO::PARAM_STR);
         $stmt->bindParam(':mail', $data['mail'], PDO::PARAM_STR);
